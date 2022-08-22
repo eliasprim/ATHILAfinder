@@ -23,7 +23,7 @@ ATHILAfinder was made for the model organism *Arabidopsis thaliana* and its clos
 
 **The ATHILAfinder dependancies are the following:** 
 
-Software: 
+Software (Version): 
 
 ```diff
 ! Vmatch (2.3.1), BEDTools (v2.27.1), blastall (2.2.26), EMBOSS (6.6.0.0), HMMER (3.3)
