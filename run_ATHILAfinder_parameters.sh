@@ -39,6 +39,12 @@ gzip -d Col-CEN_v1.2.fasta.gz
 
 # Do not forget to unzip the genome fasta file before execute the below command
 
+# Comment out one of the following running commands of the ATHILAfinder based on your operating system
+
+# running command for Linux
 script -c "bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 0.98 orfis.Ty3.updated.hmmdb" LOGFILE_Atha.txt
+
+# running command for Mac
+script LOGFILE_Atha.txt bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 0.98 orfis.Ty3.updated.hmmdb
 
 exit
