@@ -29,7 +29,7 @@ Software (Version):
 ! Vmatch (2.3.1), BEDTools (v2.27.1), blastall (2.2.26), EMBOSS (6.6.0.0), HMMER (3.3)
 ```
 
-Programming Languages and (packages): 
+Programming Languages and (Packages): 
 
 ```diff
 - R (dplyr, tidyr, data.table, plyranges, stringr, tibble, Biostrings, seqinr)
