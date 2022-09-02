@@ -23,15 +23,15 @@ ATHILAfinder was made for the model organism *Arabidopsis thaliana* and its clos
 <br />
 <br />
 
-### **The ATHILAfinder dependancies are the following:** 
+## **The ATHILAfinder dependancies are the following:** 
 
-## Software: 
+### Software: 
 
 ```diff
 ! Vmatch (2.3.1), BEDTools (v2.27.1), blastall (2.2.26), EMBOSS (6.6.0.0), HMMER (3.3)
 ```
 
-## Programming Languages and (packages): 
+### Programming Languages and (packages): 
 
 ```diff
 - R (dplyr, tidyr, data.table, plyranges, stringr, tibble, Biostrings, seqinr)
@@ -46,4 +46,4 @@ ATHILAfinder was made for the model organism *Arabidopsis thaliana* and its clos
 <br />
 <br />
 
-**More info about the execution and the parameters can be found in the run_ATHILAfinder_parameters.sh file** 
+### **More info about the execution and the parameters can be found in the run_ATHILAfinder_parameters.sh file** 
