@@ -1,9 +1,9 @@
 ```diff
-+ATHILAfinder
+# +ATHILAfinder
 ```
 <br />
 
-### Overview:
+## Overview:
 
 The ATHILA clade of Ty3 LTR retrotransposons is found across plants and occupies ~2.7% of the *Arabidopsis thaliana* genome. A recent study showed that ATHILAs are the only transposable elements that have invaded the core centromeric arrays in *Arabidopsis thaliana*, disrupting their genetic and epigenetic organization. To better assess the significance of ATHILA elements in the function and evolution of centromeres in *Arabidopsis thaliana* and other species, a computational pipeline was needed that could identify ATHILAs with high efficiency and sensitivity. Current annotation tools may lack this precision as they are broadly designed to identify all types of LTR retrotransposons. 
 
@@ -20,7 +20,6 @@ The various outputs of ATHILAfinder allow several different analyses of ATHILA e
 ATHILAfinder was made for the model organism *Arabidopsis thaliana* and its closest related species *Arabidopsis lyrata*. However, with some homology-based steps related to PBS and PPT signatures of ATHILA elements, it can be applied to any plant genome.   
 
 
-<br />
 <br />
 
 ## **The ATHILAfinder dependancies are the following:** 
@@ -43,7 +42,6 @@ ATHILAfinder was made for the model organism *Arabidopsis thaliana* and its clos
 - Awk
 ```
 
-<br />
 <br />
 
 ### **More info about the execution and the parameters can be found in the run_ATHILAfinder_parameters.sh file** 
