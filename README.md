@@ -1,6 +1,5 @@
-```diff
-# +ATHILAfinder
-```
+# ATHILAfinder: Tool to detect ATHILA LTR retrotransposons in plant genomes
+
 <br />
 
 ## Overview:
