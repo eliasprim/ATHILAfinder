@@ -279,7 +279,7 @@ df1=multiple_all %>%
   mutate(target_type = paste0(target_name, "target_type")) %>%
   pivot_wider(id_cols = query_name, names_from = target_name, names_glue = "{target_name}_{.value}", names_sort = TRUE, 
               values_from=c(envAAAAA, envBBBBB, envCCCCC, envDDDDD)) %>%
-  left_join(multiple_all, by = c("query_name" = "query_name"))
+  left_join(multiple_all, by = c("query_name" = "query_name"), multiple = "all")
 
 df1=as.data.frame(df1)
 

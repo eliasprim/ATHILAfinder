@@ -25,8 +25,8 @@ input11 = args[11]
 input12 = args[12]
 input13 = args[13]
 input14 = args[14]
-input15 = args[15]
-input16 = args[16]
+# input15 = args[15]
+# input16 = args[16]
 
 
 ############ LENGTH TABLE FOR BLAST ELEMENTS
@@ -64,58 +64,60 @@ colnames(final_flt_a)[8]="Length"
 
 ############ EDIT VMATCH TABLES AND PREPARE BED INPUT FOR BEDTOOLS --- PBS 4
 
-vmatch_tab_b=read.table(input3, fill = T)
-
-# vmatch_tab_b=read.table("Evs-0.ragtag_scaffolds.fa.DP_FULLLENGTH_BLAST_NONOVERLAPPING_PBS_ATHILA4.vmatch", fill=T)
-
-flt1_b=vmatch_tab_b[which(vmatch_tab_b$V1!="Query:" & vmatch_tab_b$V1!="!" & vmatch_tab_b$V1!="!!"),]
-
-flt2_start_b=flt1_b[which(flt1_b$V1=="21" | flt1_b$V1=="22"),]
-
-colnames(flt2_start_b)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
-
-flt3_end_b=flt1_b[which(flt1_b$V1=="Sbjct:"),]
-
-colnames(flt3_end_b)=c("Sbjct", "Seq", "End", "Chaos_1", "NA_1", "Chaos_2", "NA_2", "NA_3")
-
-flt4_b=cbind(flt2_start_b, flt3_end_b)
-
-final_flt_b=flt4_b %>%
-  select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length_1)
-
-final_flt_b$Mismatches=gsub("-", "", final_flt_b$Mismatches)
-
-colnames(final_flt_b)[8]="Length"
+# vmatch_tab_b=read.table(input3, fill = T)
+# 
+# # vmatch_tab_b=read.table("Evs-0.ragtag_scaffolds.fa.DP_FULLLENGTH_BLAST_NONOVERLAPPING_PBS_ATHILA4.vmatch", fill=T)
+# 
+# flt1_b=vmatch_tab_b[which(vmatch_tab_b$V1!="Query:" & vmatch_tab_b$V1!="!" & vmatch_tab_b$V1!="!!"),]
+# 
+# flt2_start_b=flt1_b[which(flt1_b$V1=="21" | flt1_b$V1=="22"),]
+# 
+# colnames(flt2_start_b)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
+# 
+# flt3_end_b=flt1_b[which(flt1_b$V1=="Sbjct:"),]
+# 
+# colnames(flt3_end_b)=c("Sbjct", "Seq", "End", "Chaos_1", "NA_1", "Chaos_2", "NA_2", "NA_3")
+# 
+# flt4_b=cbind(flt2_start_b, flt3_end_b)
+# 
+# final_flt_b=flt4_b %>%
+#   select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length_1)
+# 
+# final_flt_b$Mismatches=gsub("-", "", final_flt_b$Mismatches)
+# 
+# colnames(final_flt_b)[8]="Length"
 
 
 
 ############ EDIT VMATCH TABLES AND PREPARE BED INPUT FOR BEDTOOLS --- PBS 8
 
-vmatch_tab_c=read.table(input4, fill = T)
+# vmatch_tab_c=read.table(input4, fill = T)
+# 
+# # vmatch_tab_c=read.table("Evs-0.ragtag_scaffolds.fa.DP_FULLLENGTH_BLAST_NONOVERLAPPING_PBS_ATHILA8.vmatch", fill=T)
+# 
+# flt1_c=vmatch_tab_c[which(vmatch_tab_c$V1!="Query:" & vmatch_tab_c$V1!="!" & vmatch_tab_c$V1!="!!"),]
+# 
+# flt2_start_c=flt1_c[which(flt1_c$V1=="21" | flt1_c$V1=="22"),]
+# 
+# colnames(flt2_start_c)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
+# 
+# flt3_end_c=flt1_c[which(flt1_c$V1=="Sbjct:"),]
+# 
+# colnames(flt3_end_c)=c("Sbjct", "Seq", "End", "Chaos_1", "NA_1", "Chaos_2", "NA_2", "NA_3")
+# 
+# flt4_c=cbind(flt2_start_c, flt3_end_c)
+# 
+# final_flt_c=flt4_c %>%
+#   select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length_1)
+# 
+# final_flt_c$Mismatches=gsub("-", "", final_flt_c$Mismatches)
+# 
+# colnames(final_flt_c)[8]="Length"
 
-# vmatch_tab_c=read.table("Evs-0.ragtag_scaffolds.fa.DP_FULLLENGTH_BLAST_NONOVERLAPPING_PBS_ATHILA8.vmatch", fill=T)
 
-flt1_c=vmatch_tab_c[which(vmatch_tab_c$V1!="Query:" & vmatch_tab_c$V1!="!" & vmatch_tab_c$V1!="!!"),]
+# pbs_table=rbind(final_flt_a, final_flt_b, final_flt_c)
 
-flt2_start_c=flt1_c[which(flt1_c$V1=="21" | flt1_c$V1=="22"),]
-
-colnames(flt2_start_c)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
-
-flt3_end_c=flt1_c[which(flt1_c$V1=="Sbjct:"),]
-
-colnames(flt3_end_c)=c("Sbjct", "Seq", "End", "Chaos_1", "NA_1", "Chaos_2", "NA_2", "NA_3")
-
-flt4_c=cbind(flt2_start_c, flt3_end_c)
-
-final_flt_c=flt4_c %>%
-  select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length_1)
-
-final_flt_c$Mismatches=gsub("-", "", final_flt_c$Mismatches)
-
-colnames(final_flt_c)[8]="Length"
-
-
-pbs_table=rbind(final_flt_a, final_flt_b, final_flt_c)
+pbs_table=final_flt_a
 
 pbs_table$Start=as.numeric(pbs_table$Start)
 pbs_table$End=as.numeric(pbs_table$End)
@@ -124,8 +126,8 @@ pbs_table$Mismatches=as.numeric(pbs_table$Mismatches)
 # ltr_len1=500
 # ltr_len2=2500
 
-ltr_len1=as.numeric(input5)
-ltr_len2=as.numeric(input6)
+ltr_len1=as.numeric(input3)
+ltr_len2=as.numeric(input4)
 
 pbs_length=pbs_table[which(pbs_table$Start>=ltr_len1 & pbs_table$Start<=ltr_len2),]
 
@@ -143,7 +145,7 @@ pbs_final=as.data.frame(pbs_final)
 
 ############ EDIT VMATCH TABLES AND PREPARE BED INPUT FOR BEDTOOLS --- PPT
 
-vmatch_tab_d=read.table(input7, fill = T)
+vmatch_tab_d=read.table(input5, fill = T)
 
 # vmatch_tab_d=read.table("Evs-0.ragtag_scaffolds.fa.DP_FULLLENGTH_BLAST_NONOVERLAPPING_PPT.vmatch", fill=T)
 
@@ -196,7 +198,7 @@ pbs_ppt_final=merge(pbs_final, ppt_final, by.x = c("Chr"), by.y =  c("Chr"), all
 
 # pbs_ppt_final=pbs_ppt_final[which(pbs_ppt_final$Mismatches.x<=5 & pbs_ppt_final$Mismatches.y<=5),]
 
-pbs_ppt_final=pbs_ppt_final[which(pbs_ppt_final$Mismatches.x<=as.numeric(input8) & pbs_ppt_final$Mismatches.y<=as.numeric(input9)),]
+pbs_ppt_final=pbs_ppt_final[which(pbs_ppt_final$Mismatches.x<=as.numeric(input6) & pbs_ppt_final$Mismatches.y<=as.numeric(input7)),]
 
 print(pbs_ppt_final)
 
@@ -212,7 +214,7 @@ pbs_ppt_final=pbs_ppt_final %>%
 # remove_ID="Atha_Evs-0"
 # remove_ID=paste0(remove_ID, "_")
 
-remove_ID=as.character(input10)
+remove_ID=as.character(input8)
 remove_ID=paste0(remove_ID, "_")
 
 
@@ -250,9 +252,9 @@ P_strand=pbs_ppt_final[which(pbs_ppt_final$strand=="-"),]
 
 if (dim(D_strand)[1] == 0) {
   
-  write.table(D_strand_5ltr, input11, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(D_strand_3ltr, input12, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(D_strand_internal, input13, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_5ltr, input9, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_3ltr, input10, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_internal, input11, sep = "\t", row.names = F, quote= F, col.names = F)
   
 } else {
   
@@ -281,9 +283,9 @@ if (dim(D_strand)[1] == 0) {
   D_strand_internal$ID=paste(D_strand_internal$ID, "internal", sep="_")
   
   
-  write.table(D_strand_5ltr, input11, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(D_strand_3ltr, input12, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(D_strand_internal, input13, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_5ltr, input9, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_3ltr, input10, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(D_strand_internal, input11, sep = "\t", row.names = F, quote= F, col.names = F)
   
 }
 
@@ -326,9 +328,9 @@ if (dim(D_strand)[1] == 0) {
 
 if (dim(P_strand)[1] == 0) {
   
+  write.table(P_strand, input12, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(P_strand, input13, sep = "\t", row.names = F, quote= F, col.names = F)
   write.table(P_strand, input14, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(P_strand, input15, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(P_strand, input16, sep = "\t", row.names = F, quote= F, col.names = F)
   
 } else {
   P_strand$PBS_Start=as.numeric(as.character(P_strand$PBS_Start)) + 5
@@ -355,9 +357,9 @@ if (dim(P_strand)[1] == 0) {
   
   P_strand_internal$ID=paste(P_strand_internal$ID, "internal", sep="_")
   
-  write.table(P_strand_5ltr, input14, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(P_strand_3ltr, input15, sep = "\t", row.names = F, quote= F, col.names = F)
-  write.table(P_strand_internal, input16, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(P_strand_5ltr, input12, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(P_strand_3ltr, input13, sep = "\t", row.names = F, quote= F, col.names = F)
+  write.table(P_strand_internal, input14, sep = "\t", row.names = F, quote= F, col.names = F)
 }
 
 

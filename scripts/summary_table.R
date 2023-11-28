@@ -113,8 +113,8 @@ blast5ltr=read.table(input5, sep="\t")
 
 # blast5ltr=read.table("t2t-col.20210610.fasta.DP_5LTR_BLAST_NONOVERLAPPING.bed", sep="\t")
 
-blast5ltr=blast5ltr %>%
-  select(V1, V2, V3, V4, V7)
+# blast5ltr=blast5ltr %>%
+#   select(V1, V2, V3, V4, V7)
 
 colnames(blast5ltr)=c("chr", "genome_5LTR_start_coord", "genome_5LTR_stop_coord", "PRIME_ID", "direction")
 
@@ -131,8 +131,8 @@ blast3ltr=read.table(input6, sep="\t")
 
 # blast3ltr=read.table("t2t-col.20210610.fasta.DP_3LTR_BLAST_NONOVERLAPPING.bed", sep="\t")
 
-blast3ltr=blast3ltr %>%
-  select(V1, V2, V3, V4, V7)
+# blast3ltr=blast3ltr %>%
+#   select(V1, V2, V3, V4, V7)
 
 colnames(blast3ltr)=c("chr", "genome_3LTR_start_coord", "genome_3LTR_stop_coord", "PRIME_ID", "direction")
 
