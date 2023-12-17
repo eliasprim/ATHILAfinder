@@ -39,6 +39,8 @@ gzip -d Col-CEN_v1.2.fasta.gz
 
 # "ORF HMM DATABASE: ${18}";
 
+# "HMMSCAN E-VALUE: ${19}";
+
 
 # Do not forget to unzip the genome fasta file before executing the below command
 
@@ -47,12 +49,12 @@ gzip -d Col-CEN_v1.2.fasta.gz
 
 # running command for Linux
 
-script -c "bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb" LOGFILE_Atha.txt
+script -c "bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 10" LOGFILE_Atha.txt
 
 
 # running command for Mac
 
-# script LOGFILE_Atha.txt bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb
+# script LOGFILE_Atha.txt bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 10
 
 
 exit

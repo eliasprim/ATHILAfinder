@@ -44,6 +44,8 @@ echo "BLAST SOLO-LTR Coverage (Minimum value): ${17}";
 
 echo "ORF HMM DATABASE: ${18}";
 
+echo "HMMSCAN E-VALUE: ${19}";
+
 
 # STEP 1: RUN VMATCH TO FIND THE PBS AND PPT JUNCTIONS
 
@@ -661,7 +663,7 @@ echo "STEP 17: DONE";
 
 hmmpress -f inputs/${18} 
 
-hmmscan -o $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001 --tblout $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.tbl --domtblout $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl --max -E 0.001 --domE 0.001 --incE 0.001 --incdomE 0.001 inputs/${18} $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta
+hmmscan -o $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19} --tblout $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.tbl --domtblout $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl --max -E ${19} --domE ${19} --incE ${19} --incdomE ${19} inputs/${18} $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta
 
 grep NAME inputs/${18} | awk 'BEGIN {OFS="\t"};{print $2}' > ${18}_NAME.txt
 
@@ -677,21 +679,21 @@ echo "STEP 18: DONE";
 
 # STEP 19: ANALYSE HMMSCAN OUTPUT
 
-Rscript scripts/hmm_domtbl_analysis.R $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_HMM_AA.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_IDs.txt ${18}_NAME_AND_LENGTH.txt $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_COUNT_TABLE.txt $1.DP_5LTR_BLAST_TOGETHER_LENGTH.txt ${10}_ $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_D_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_HMMTABLE.txt
+Rscript scripts/hmm_domtbl_analysis.R $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_HMM_AA.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_IDs.txt ${18}_NAME_AND_LENGTH.txt $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_COUNT_TABLE.txt $1.DP_5LTR_BLAST_TOGETHER_LENGTH.txt ${10}_ $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_D_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_HMMTABLE.txt
 
-bedtools getfasta -fi $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_HMM_AA.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_HMM_AA.fasta
+bedtools getfasta -fi $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_HMM_AA.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_HMM_AA.fasta
 
-cat $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_D_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_BED.bed > $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_DP_HMM_BED.bed
+cat $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_D_HMM_BED.bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_BED.bed > $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_DP_HMM_BED.bed
 
-bedtools getfasta -fi $1 -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_D_HMM_BED.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_D_HMM_FASTA.fasta
+bedtools getfasta -fi $1 -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_D_HMM_BED.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_D_HMM_FASTA.fasta
 
-bedtools getfasta -fi $1 -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_BED.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_FASTA.fasta
+bedtools getfasta -fi $1 -bed $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_BED.bed -name -fo $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_FASTA.fasta
 
-python3 scripts/revcom_auto2.py $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_FASTA.fasta
+python3 scripts/revcom_auto2.py $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_FASTA.fasta
 
-cat $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_D_HMM_FASTA.fasta $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_P_HMM_FASTA.fasta_sl.fasta > $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_DP_HMM_FASTA.fasta
+cat $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_D_HMM_FASTA.fasta $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_P_HMM_FASTA.fasta_sl.fasta > $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_DP_HMM_FASTA.fasta
 
-python3 scripts/translate_dna.py $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_DP_HMM_FASTA.fasta
+python3 scripts/translate_dna.py $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_DP_HMM_FASTA.fasta
 
 echo "STEP 19: DONE";
 
@@ -707,7 +709,7 @@ echo "STEP 20: DONE";
 
 # STEP 21: SUMMARY TABLES
 
-Rscript scripts/summary_table.R $1.DP_FULLLENGTH_RENAMED.bed $1.DP_5LTR_RENAMED.bed $1.DP_3LTR_RENAMED.bed $1.DP_FULLLENGTH_BLAST_NONOVERLAPPING_SPECIFIC_ENDS_COMPLETE.bed $1.DP_5LTR_BLAST_NONOVERLAPPING_SPECIFIC_ENDS.bed $1.DP_3LTR_BLAST_NONOVERLAPPING_SPECIFIC_ENDS.bed $1.DP_FULLLENGTH_BLAST_TOGETHER_PID1_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID2_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID3_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID4_TABLE.txt $1.DP_SOLO_LTR_BLAST_NONOVERLAPPING_CLEAR_PBSPPT.bed $1.DP_ULTIMATE_TSD_TABLE.txt ${10} $1.DP_FULLLENGTH_AND_SOLO_SUMMARY_TABLE.txt $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E001incE001.domtbl_HMMTABLE.txt $1.DP_FULLLENGTH_AND_HMM_SUMMARY_TABLE_ALLPID.txt
+Rscript scripts/summary_table.R $1.DP_FULLLENGTH_RENAMED.bed $1.DP_5LTR_RENAMED.bed $1.DP_3LTR_RENAMED.bed $1.DP_FULLLENGTH_BLAST_NONOVERLAPPING_SPECIFIC_ENDS_COMPLETE.bed $1.DP_5LTR_BLAST_NONOVERLAPPING_SPECIFIC_ENDS.bed $1.DP_3LTR_BLAST_NONOVERLAPPING_SPECIFIC_ENDS.bed $1.DP_FULLLENGTH_BLAST_TOGETHER_PID1_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID2_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID3_TABLE.txt $1.DP_FULLLENGTH_BLAST_TOGETHER_PID4_TABLE.txt $1.DP_SOLO_LTR_BLAST_NONOVERLAPPING_CLEAR_PBSPPT.bed $1.DP_ULTIMATE_TSD_TABLE.txt ${10} $1.DP_FULLLENGTH_AND_SOLO_SUMMARY_TABLE.txt $1.DP_INTERNAL_BLAST_TOGETHER.fasta.ORF300_SL.fasta.hmmscanned.E${19}incE${19}.domtbl_HMMTABLE.txt $1.DP_FULLLENGTH_AND_HMM_SUMMARY_TABLE_ALLPID.txt
 
 echo "STEP 21: DONE";
 
@@ -909,7 +911,7 @@ rm *.ORF300
 
 rm *.tbl
 
-rm *.E001incE001
+rm *.E${19}incE${19}
 
 rm inputs/*.h3p
 
@@ -968,6 +970,8 @@ echo "Mismatches of Start/End Oligomers BLAST: ${16}";
 echo "BLAST SOLO-LTR Coverage (Minimum value): ${17}";
 
 echo "ORF HMM DATABASE: ${18}";
+
+echo "HMMSCAN E-VALUE: ${19}";
 
 
 a=($(wc $1.DP_FULLLENGTH_RENAMED.bed))
