@@ -47,10 +47,10 @@ extended_P$V3=extended_P$V3+as.numeric(input2)
 # extended_P$V3=extended_P$V3+2000
 
 extended_D$V6=substr(extended_D$V6, start = 1, stop = 5)
-extended_D$V11=substr(extended_D$V11, start = 17, stop = 21)
+extended_D$V11=substr(extended_D$V11, start = 16, stop = 21)
 
 extended_P$V11=substr(extended_P$V11, start = 1, stop = 5)
-extended_P$V6=substr(extended_P$V6, start = 17, stop = 21)
+extended_P$V6=substr(extended_P$V6, start = 16, stop = 21)
 
 write.table(extended_D, input3, sep = "\t", row.names = F, quote= F, col.names = F)
 write.table(extended_P, input4, sep = "\t", row.names = F, quote= F, col.names = F)

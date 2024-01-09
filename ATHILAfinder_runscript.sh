@@ -1,6 +1,12 @@
+#!/bin/bash
+
 # Unzip the zipped assembly file
 
 gzip -d Col-CEN_v1.2.fasta.gz
+
+# Pre-process assembly file
+
+python treat_fasta.py Col-CEN_v1.2.fasta
 
 
 # "Assembly: $1";
@@ -49,7 +55,7 @@ gzip -d Col-CEN_v1.2.fasta.gz
 
 # running command for Linux
 
-script -c "bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 0.01" LOGFILE_Atha.txt
+script -c "bash ATHILAfinder.sh Col-CEN_v1.2_clean.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 0.01" LOGFILE_Atha.txt
 
 
 # running command for Mac
