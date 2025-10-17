@@ -28,7 +28,8 @@ spends=read.table(input2, sep="\t")
 
 # spends=read.table("Col-CEN_v1.2.fasta.DP_FULLLENGTH_BLAST_NONOVERLAPPING_SPECIFIC_ENDS.bed", sep="\t")
 
-result=nonover[!(nonover$V4 %in% spends$V7),]
+# result=nonover[!(nonover$V4 %in% spends$V7),]
+result=nonover[!sapply(nonover$V4, function(x) any(grepl(x, spends$V7))), ]
 
 result_new=result %>%
   select(-V5, -V6) %>%

@@ -28,8 +28,8 @@ extended=read.table(input1, sep = "\t")
 
 # extended=read.table("t2t-col.20210610.fasta.F2B.ALL.PBSNPPT_DP_OUTSIDE_INTERNAL_CLEAN.bed", sep="\t")
 
-extended_D=extended[which(extended$V15=="+"),]
-extended_P=extended[which(extended$V15=="-"),]
+extended_D=extended[which(extended$V17=="+"),]
+extended_P=extended[which(extended$V17=="-"),]
 
 extended_D_4_SE=extended_D
 extended_P_4_SE=extended_P
@@ -74,10 +74,10 @@ extended_D_4_SE=unite(extended_D_4_SE, coord, c(V2, V3), remove=FALSE, sep="-")
 extended_D_4_SE=unite(extended_D_4_SE, ext_id, c(V1, coord), remove=FALSE, sep=":")
 
 extended_D_START=extended_D_4_SE %>%
-  select(V1, V3_minus_5_equals_SS, V3_plus_10_equals_SE, ext_id, V15)
+  select(V1, V3_minus_5_equals_SS, V3_plus_10_equals_SE, ext_id, V17)
 
 extended_D_END=extended_D_4_SE %>%
-  select(V1, V2_minus_10_equals_ES, V2_plus_5_equals_EE, ext_id, V15)
+  select(V1, V2_minus_10_equals_ES, V2_plus_5_equals_EE, ext_id, V17)
 
 
 write.table(extended_D_START, input6, sep = "\t", row.names = F, quote= F, col.names = F)
@@ -98,10 +98,10 @@ extended_P_4_SE=unite(extended_P_4_SE, coord, c(V2, V3), remove=FALSE, sep="-")
 extended_P_4_SE=unite(extended_P_4_SE, ext_id, c(V1, coord), remove=FALSE, sep=":")
 
 extended_P_START=extended_P_4_SE %>%
-  select(V1, V2_minus_10_equals_SE, V2_plus_5_equals_SS, ext_id, V15)
+  select(V1, V2_minus_10_equals_SE, V2_plus_5_equals_SS, ext_id, V17)
 
 extended_P_END=extended_P_4_SE %>%
-  select(V1, V3_minus_5_equals_EE, V3_plus_10_equals_ES, ext_id, V15)
+  select(V1, V3_minus_5_equals_EE, V3_plus_10_equals_ES, ext_id, V17)
 
 
 write.table(extended_P_START, input8, sep = "\t", row.names = F, quote= F, col.names = F)

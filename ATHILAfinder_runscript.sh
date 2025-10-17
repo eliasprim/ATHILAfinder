@@ -2,50 +2,58 @@
 
 # Unzip the zipped assembly file
 
-gzip -d Col-CEN_v1.2.fasta.gz
+# gzip -d Col-CEN_v1.2.fasta.gz
 
 # Pre-process assembly file
 
-python treat_fasta.py Col-CEN_v1.2.fasta
+python scripts/treat_fasta.py $1 $2
+
+
 
 
 # "Assembly: $1";
 
-# "Searching Regions (bedtools window): $2";
+# "PBS signature: $2";
 
-# "Minimum Internal Length: $3";
+# "PPT signature: $3";
 
-# "Maximum Internal Length: $4";
+# "Searching Regions (bedtools window): $4";
 
-# "Extend Internal: $5";
+# "Minimum Internal Length: $5";
 
-# "Length of Start/End Oligomers: $6";
+# "Maximum Internal Length: $6";
 
-# "Mismatches of Start/End Oligomers: $7";
+# "Extend Internal: $7";
 
-# "Minimum LTR Length: $8";
+# "Length of Start/End Oligomers: $8";
 
-# "Maximum LTR Length: $9";
+# "Mismatches of Start/End Oligomers: $9";
 
-# "Species code: ${10}";
+# "Minimum LTR Length: ${10}";
 
-# "BLAST FULL-LENGTH Coverage (Minimum value): ${11}";
+# "Maximum LTR Length: ${11}";
 
-# "BLAST Minimum Signature Coordinate: ${12}"
+# "Species code: ${12}";
 
-# "BLAST Maximum Signature Coordinate: ${13}"
+# "LTR retrotransposon lineage: ${13}"
 
-# "BLAST PBS Signature Mismatches: ${14}"
+# "BLAST FULL-LENGTH Coverage (Minimum value): ${14}";
 
-# "BLAST PPT Signature Mismatches: ${15}"
+# "BLAST Minimum Signature Coordinate: ${15}"
 
-# "Mismatches of Start/End Oligomers BLAST: ${16}";
+# "BLAST Maximum Signature Coordinate: ${16}"
 
-# "BLAST SOLO-LTR Coverage (Minimum value): ${17}";
+# "BLAST PBS Signature Mismatches: ${17}"
 
-# "ORF HMM DATABASE: ${18}";
+# "BLAST PPT Signature Mismatches: ${18}"
 
-# "HMMSCAN E-VALUE: ${19}";
+# "BLAST Mismatches of Start/End Oligomers: ${19}";
+
+# "BLAST SOLO-LTR Coverage (Minimum value): ${20}";
+
+# "ORF HMM DATABASE: ${21}";
+
+# "HMMSCAN E-VALUE: ${22}";
 
 
 # Do not forget to unzip the genome fasta file before executing the below command
@@ -55,12 +63,12 @@ python treat_fasta.py Col-CEN_v1.2.fasta
 
 # running command for Linux
 
-script -c "bash ATHILAfinder.sh Col-CEN_v1.2_clean.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 0.01" LOGFILE_Atha.txt
+bash ATHILAfinder.sh $2 ATHILA_PBSjunction.txt ATHILA_PPTjunction.txt 11000 2000 11000 2000 20 5 1000 2000 Atha Athila 0.80 500 2500 5 5 19 0.90 orfis.Ty3.updated.hmmdb 0.01
 
 
 # running command for Mac
 
-# script LOGFILE_Atha.txt bash ATHILAfinder.sh Col-CEN_v1.2.fasta 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 15 0.98 orfis.Ty3.updated.hmmdb 0.01
+# script LOGFILE_Atha.txt bash ATHILAfinder.sh 100620.Chr_scaffolds.fa 11000 2000 11000 2000 20 4 1000 2000 Atha 0.90 500 2500 5 5 19 0.98 orfis.Ty3.updated.hmmdb 0.01
 
 
 exit

@@ -54,23 +54,23 @@ outside_internal=read.table(input1, sep="\t")
 #   mutate(middle_of_oligomer=(as.numeric(as.character(V17)) + as.numeric(as.character(V18)))/2)
 
 outside_internal=outside_internal %>%
-  mutate(before_start=as.numeric(as.character(V2)) - as.numeric(as.character(V17)),
-         after_end=as.numeric(as.character(V3)) - as.numeric(as.character(V18)))
+  mutate(before_start=as.numeric(as.character(V2)) - as.numeric(as.character(V19)),
+         after_end=as.numeric(as.character(V3)) - as.numeric(as.character(V20)))
 
 without_zero=outside_internal[which(outside_internal$before_start!=0 & outside_internal$after_end!=0),]
 
 new_without_zero=without_zero %>%
-  select(V1:V15)
+  select(V1:V17)
 
 write.table(new_without_zero, input2, sep = "\t", row.names = F, quote= F, col.names = F)
 
-# GET the internal elements without a PBS or a PPT close to them [2,5kb] (even if other internal element)   
+# GET the internal elements without a PBS or a PPT close to them [2,5kb] (even if is other internal element)   
 
 input_window=read.table(input3, sep="\t")
 
 # input_window=read.table("t2t-col.20210610.fasta.F2B.ALL_PBSPPT_DP_WINDOW2.bed", sep="\t")
 
-rrr=anti_join(input_window, new_without_zero)
+suppressMessages({rrr=anti_join(input_window, new_without_zero)})
 
 write.table(rrr, input4, sep = "\t", row.names = F, quote= F, col.names = F)
 
@@ -78,22 +78,22 @@ write.table(rrr, input4, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # separate elements based on the strand in order to getfasta
 
-strd=rrr[which(rrr$V15=="+"),]
+strd=rrr[which(rrr$V17=="+"),]
 
 write.table(strd, input5, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
-strp=rrr[which(rrr$V15=="-"),]
+strp=rrr[which(rrr$V17=="-"),]
 
 write.table(strp, input6, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # Proximal elements
 
-try_smt2=intersect(without_zero$V4, without_zero$V19)
+try_smt2=intersect(without_zero$V4, without_zero$V21)
 try_smt2=as.data.frame(try_smt2)
 colnames(try_smt2)=c("try_something")
 
-try_smt3=intersect(without_zero$V9, without_zero$V19)
+try_smt3=intersect(without_zero$V9, without_zero$V21)
 try_smt3=as.data.frame(try_smt3)
 colnames(try_smt3)=c("try_something")
 
@@ -102,7 +102,7 @@ overall_try_smt=rbind(try_smt2, try_smt3)
 proximal_elements=NULL;
 for (i in overall_try_smt$try_something)
 {
-  tmp=without_zero[which(without_zero$V19==i),]
+  tmp=without_zero[which(without_zero$V21==i),]
   proximal_elements=rbind(proximal_elements, tmp)
 }
 
@@ -112,7 +112,7 @@ write.table(proximal_elements, input7, sep = "\t", row.names = F, quote= F, col.
 
 # Orphan oligomers 
 
-try_smt4=setdiff(without_zero$V19, without_zero$V4)
+try_smt4=setdiff(without_zero$V21, without_zero$V4)
 
 try_smt5=setdiff(try_smt4, without_zero$V9)
 try_smt5=as.data.frame(try_smt5)
@@ -121,7 +121,7 @@ colnames(try_smt5)=c("something_try")
 orphan_oligomers=NULL;
 for (i in try_smt5$something_try)
 {
-  tmp=without_zero[which(without_zero$V19==i),]
+  tmp=without_zero[which(without_zero$V21==i),]
   orphan_oligomers=rbind(orphan_oligomers, tmp)
 }
 

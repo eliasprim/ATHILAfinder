@@ -42,7 +42,9 @@ dokimh_st_d=read.table(input1, fill = T)
 flt1_st_d=dokimh_st_d[which(dokimh_st_d$V1!="Query:" & dokimh_st_d$V1!="!" & dokimh_st_d$V1!="!!" & dokimh_st_d$V1!="!!!" & 
                             dokimh_st_d$V1!="!!!!"),]
 
-flt2_st_d=flt1_st_d[which(flt1_st_d$V1=="15" | flt1_st_d$V1=="20" | flt1_st_d$V1=="25"),]
+# flt2_st_d=flt1_st_d[which(flt1_st_d$V1=="15" | flt1_st_d$V1=="20" | flt1_st_d$V1=="25"),]
+
+suppressWarnings({flt2_st_d=flt1_st_d[!is.na(as.numeric(flt1_st_d$V1)),]})
 
 colnames(flt2_st_d)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -61,7 +63,7 @@ final_flt_st_d=flt4_st_d %>%
 colnames(final_flt_st_d)[8]="Length"
 
 
-mis01=final_flt_st_d[which(final_flt_st_d$Start<2000),] ### 92/109 20mer/4mis, 105/109 15mer/3mis, 90/109 25mer/5mis
+mis01=final_flt_st_d[which(final_flt_st_d$Start<as.numeric(input4)),] ### 92/109 20mer/4mis, 105/109 15mer/3mis, 90/109 25mer/5mis
 mis01_new=mis01[order(-mis01$Mismatches),]
 
 new_mis01=mis01_new %>%
@@ -79,7 +81,9 @@ dokimh_st_p=read.table(input2, fill = T)
 flt1_st_p=dokimh_st_p[which(dokimh_st_p$V1!="Query:" & dokimh_st_p$V1!="!" & dokimh_st_p$V1!="!!" & dokimh_st_p$V1!="!!!" & 
                               dokimh_st_p$V1!="!!!!"),]
 
-flt2_st_p=flt1_st_p[which(flt1_st_p$V1=="15" | flt1_st_p$V1=="20" | flt1_st_p$V1=="25"),]
+# flt2_st_p=flt1_st_p[which(flt1_st_p$V1=="15" | flt1_st_p$V1=="20" | flt1_st_p$V1=="25"),]
+
+suppressWarnings({flt2_st_p=flt1_st_p[!is.na(as.numeric(flt1_st_p$V1)),]})
 
 colnames(flt2_st_p)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -98,7 +102,7 @@ final_flt_st_p=flt4_st_p %>%
 colnames(final_flt_st_p)[8]="Length"
 
 
-mis02=final_flt_st_p[which(final_flt_st_p$Start<2000),] ### 77/97 20mer/4mis, 90/97 15mer/3mis, 75/97 25mer/5mer
+mis02=final_flt_st_p[which(final_flt_st_p$Start<as.numeric(input4)),] ### 77/97 20mer/4mis, 90/97 15mer/3mis, 75/97 25mer/5mer
 mis02_new=mis02[order(-mis02$Mismatches),]
 
 new_mis02=mis02_new %>%
@@ -154,7 +158,7 @@ duplicate_telos_new=as.data.frame(duplicate_telos_new)
 
 
 
-unique_telos_new=anti_join(telos_new, duplicate_telos_new)  ### merge to the final start table
+suppressMessages({unique_telos_new=anti_join(telos_new, duplicate_telos_new)})  ### merge to the final start table
 
 
 
@@ -176,7 +180,7 @@ new_ert=as.data.frame(new_ert)
 new2_ert=new_ert %>%
   select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length) ### merge to the final start table
 
-skta=anti_join(super_test, ert)
+suppressMessages({skta=anti_join(super_test, ert)})
 
 jk=intersect(ert$Chr, skta$Chr)
 jk=as.data.frame(jk)
@@ -234,7 +238,9 @@ dokimh_en_d=read.table(input6, fill = T)
 flt1_en_d=dokimh_en_d[which(dokimh_en_d$V1!="Query:" & dokimh_en_d$V1!="!" & dokimh_en_d$V1!="!!" & dokimh_en_d$V1!="!!!" & 
                             dokimh_en_d$V1!="!!!!"),]
 
-flt2_en_d=flt1_en_d[which(flt1_en_d$V1=="15" | flt1_en_d$V1=="20" | flt1_en_d$V1=="25"),]
+# flt2_en_d=flt1_en_d[which(flt1_en_d$V1=="15" | flt1_en_d$V1=="20" | flt1_en_d$V1=="25"),]
+
+suppressWarnings({flt2_en_d=flt1_en_d[!is.na(as.numeric(flt1_en_d$V1)),]})
 
 colnames(flt2_en_d)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -263,7 +269,7 @@ final_flt_en_d=final_flt_en_d %>%
   mutate(Length_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(Start_Elem)))
 
 final_flt_en_d=final_flt_en_d %>%
-  mutate(three_LTR=as.numeric(as.character(Length_Elem)) - 2000) 
+  mutate(three_LTR=as.numeric(as.character(Length_Elem)) - as.numeric(input4)) 
 
 mis03=final_flt_en_d[which(final_flt_en_d$Start>=final_flt_en_d$three_LTR),] ### 92/109 20mer/4mis, 105/109 15mer/3mis, 92/109 25mer/mis
 
@@ -283,7 +289,9 @@ dokimh_en_p=read.table(input7, fill = T)
 flt1_en_p=dokimh_en_p[which(dokimh_en_p$V1!="Query:" & dokimh_en_p$V1!="!" & dokimh_en_p$V1!="!!" & dokimh_en_p$V1!="!!!" & 
                             dokimh_en_p$V1!="!!!!"),]
 
-flt2_en_p=flt1_en_p[which(flt1_en_p$V1=="15" | flt1_en_p$V1=="20" | flt1_en_p$V1=="25"),]
+# flt2_en_p=flt1_en_p[which(flt1_en_p$V1=="15" | flt1_en_p$V1=="20" | flt1_en_p$V1=="25"),]
+
+suppressWarnings({flt2_en_p=flt1_en_p[!is.na(as.numeric(flt1_en_p$V1)),]})
 
 colnames(flt2_en_p)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -314,7 +322,7 @@ final_flt_en_p=final_flt_en_p %>%
   mutate(Length_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(Start_Elem)))
 
 final_flt_en_p=final_flt_en_p %>%
-  mutate(three_LTR=as.numeric(as.character(Length_Elem)) - 2000) 
+  mutate(three_LTR=as.numeric(as.character(Length_Elem)) - as.numeric(input4)) 
 
 mis04=final_flt_en_p[which(final_flt_en_p$Start>=final_flt_en_p$three_LTR),] ### 88/97 20mer/4mis, 95/97 15mer/3mis, 80/97 25mer/5mis
 
@@ -350,7 +358,7 @@ duplicate_end_new=end_new %>%
 duplicate_end_new=as.data.frame(duplicate_end_new)
 
 
-unique_end_new=anti_join(end_new, duplicate_end_new)  ### merge to the final start table
+suppressMessages({unique_end_new=anti_join(end_new, duplicate_end_new)})  ### merge to the final start table
 
 
 unique_end_new=unique_end_new %>%
@@ -376,7 +384,7 @@ new2_ert_end=new_ert_end %>%
   select(Chr, Seq, Type, Mismatches, Start, End, Strand, Length)
 
 
-skta_end=anti_join(super_test_end, ert_end)
+suppressMessages({skta_end=anti_join(super_test_end, ert_end)})
 
 jk_end=intersect(ert_end$Chr, skta_end$Chr)
 jk_end=as.data.frame(jk_end)
@@ -421,13 +429,13 @@ mega_tab=na.omit(mega_tab)
 mega_tab=mega_tab %>%
   select(Chr, Seq.x, Start.x, Seq.y, End.y)
 
-colnames(mega_tab)=c("ATHILA_ID", "Seq_Start", "ATHILA_Start", "Seq_End", "ATHILA_End")
+colnames(mega_tab)=c("ID", "Seq_Start", "Start", "Seq_End", "End")
 
 mega_tab=mega_tab %>%
-  select(ATHILA_ID, Seq_Start, Seq_End, ATHILA_Start, ATHILA_End)
+  select(ID, Seq_Start, Seq_End, Start, End)
 
 new_mega_tab=mega_tab %>%
-  separate(ATHILA_ID, c("chr", "coords"), sep = ":", remove=FALSE)
+  separate(ID, c("chr", "coords"), sep = ":", remove=FALSE)
 
 new_mega_tab=new_mega_tab %>%
   separate(coords, c("Start_Elem", "End_Elem"), sep="-", remove=FALSE)
@@ -436,17 +444,17 @@ new_mega_tab$chr=gsub("rc_", "", new_mega_tab$chr)
 new_mega_tab$End_Elem=gsub("_P_element", "", new_mega_tab$End_Elem)
 
 
-P_STRAND=new_mega_tab[new_mega_tab$ATHILA_ID %like% "_P_element", ]
+P_STRAND=new_mega_tab[new_mega_tab$ID %like% "_P_element", ]
 
-D_STRAND=anti_join(new_mega_tab, P_STRAND)
+suppressMessages({D_STRAND=anti_join(new_mega_tab, P_STRAND)})
 
 NEW_D_STRAND=D_STRAND %>%
-  mutate(New_Start_Elem=as.numeric(as.character(Start_Elem)) + as.numeric(as.character(ATHILA_Start)),
-         New_End_Elem=as.numeric(as.character(Start_Elem)) + as.numeric(as.character(ATHILA_End)))
+  mutate(New_Start_Elem=as.numeric(as.character(Start_Elem)) + as.numeric(as.character(Start)),
+         New_End_Elem=as.numeric(as.character(Start_Elem)) + as.numeric(as.character(End)))
 
 NEW_P_STRAND=P_STRAND %>%
-  mutate(New_End_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(ATHILA_Start)),
-         New_Start_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(ATHILA_End)))
+  mutate(New_End_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(Start)),
+         New_Start_Elem=as.numeric(as.character(End_Elem)) - as.numeric(as.character(End)))
 
 NEW_D_STRAND=NEW_D_STRAND %>%
   mutate(Strand="+")
@@ -455,10 +463,10 @@ NEW_P_STRAND=NEW_P_STRAND %>%
   mutate(Strand="-")
 
 new2_mega_tab_D=NEW_D_STRAND %>%
-  select(chr, New_Start_Elem, New_End_Elem, ATHILA_ID, Seq_Start, Seq_End, Strand)
+  select(chr, New_Start_Elem, New_End_Elem, ID, Seq_Start, Seq_End, Strand)
 
 new2_mega_tab_P=NEW_P_STRAND %>%
-  select(chr, New_Start_Elem, New_End_Elem, ATHILA_ID, Seq_Start, Seq_End, Strand)
+  select(chr, New_Start_Elem, New_End_Elem, ID, Seq_Start, Seq_End, Strand)
 
 # dim(new2_mega_tab_D)
 # dim(new2_mega_tab_P)
@@ -500,10 +508,10 @@ rjct_elem=read.table(input11, sep = "\t")
 rjct_elem=unite(rjct_elem, id_half, c(V2, V3), remove=FALSE, sep="-")
 rjct_elem=unite(rjct_elem, id_full, c(V1, id_half), remove=FALSE, sep=":")
 
-rjct_elem_DDD=rjct_elem[which(rjct_elem$V15=="+"),]
+rjct_elem_DDD=rjct_elem[which(rjct_elem$V17=="+"),]
 
 
-rjct_elem_PPP=rjct_elem[which(rjct_elem$V15=="-"),]
+rjct_elem_PPP=rjct_elem[which(rjct_elem$V17=="-"),]
 
 rjct_elem_PPP$id_full=paste0(rjct_elem_PPP$id_full, "_P_element")
 rjct_elem_PPP$id_full=paste("rc", rjct_elem_PPP$id_full, sep="_")
@@ -515,7 +523,7 @@ MERGED_rjct_elem=rbind(rjct_elem_DDD, rjct_elem_PPP)
 new_rjct_elem=merge(missing_elements, MERGED_rjct_elem, by.x=c("tautothta"), by.y=c("id_full"), all.x=TRUE)
 
 new2_rjct_elem=new_rjct_elem %>%
-   select(V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15)
+   select(V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17)
 
 # write.table(new2_rjct_elem, "t2t-col.20210610.fasta.F2B.ALL.PBSNPPT_DP_EXTENDED_INTERNAL_CLEAN_REJECTED.bed", sep = "\t", row.names = F, quote= F, col.names = F)
  

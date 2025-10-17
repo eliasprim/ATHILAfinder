@@ -1,0 +1,32 @@
+name: athilafinder  # Environment name
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  # System tools
+  - perl
+  - awk
+  - vmatch
+  - bedtools
+  - blast-legacy  # Older BLAST toolset
+  # - blast          # Newer BLAST+ toolset
+  - emboss
+  - hmmer
+  - libpq  # Added for resolving libpq.5.dylib issue
+
+  # R packages
+  - r-base=4.4.3  # Explicitly pinned for seqinr compatibility
+  - r-tidyverse
+  - r-data.table
+  - bioconductor-plyranges
+  - bioconductor-biostrings
+  - bioconductor-pwalign  # Required for pid() in Biostrings
+  - r-seqinr
+
+  # Python packages
+  - python=3.9
+  - pip
+  - pip:
+      - regex
+      - biopython  # Includes Bio.SeqIO and Bio.SeqRecord

@@ -28,6 +28,7 @@ input9 = args[9]
 input10 = args[10]
 input11 = args[11]
 input12 = args[12]
+input13 = args[13]
 
 
 # our server 59565
@@ -99,18 +100,18 @@ p_strand=best_hits[which(best_hits$strand=="-"),]
 
 
 d_strand=d_strand %>%
-  mutate(atha="D_Athila_prime", species_code=as.character(input4))
+  mutate(lineage = paste0('D_', as.character(input4), '_prime'), species_code=as.character(input5))
 
 # d_strand=d_strand %>%
 #    mutate(atha="D_Athila_5prime", species_code="Atha")
 
 d_strand=unite(d_strand, coords, c(start, end), remove=FALSE, sep="-")
 d_strand=unite(d_strand, chr_coords, c(seqnames, coords), remove=FALSE, sep=".")
-d_strand=unite(d_strand, full_id, c(chr_coords, atha), remove=FALSE, sep="_")
+d_strand=unite(d_strand, full_id, c(chr_coords, lineage), remove=FALSE, sep="_")
 d_strand=unite(d_strand, sp_full_id, c(species_code, full_id), remove=FALSE, sep="_")
 
 d_strand=d_strand %>%
-  select(seqnames, start, end, sp_full_id, coverage, atha, strand)
+  select(seqnames, start, end, sp_full_id, coverage, lineage, strand)
 
 dblu=setdiff(d_strand$sp_full_id, ltr_length$V1)
 dblu=as.data.frame(dblu)
@@ -120,32 +121,32 @@ d_strand_new=subset(d_strand, sp_full_id %in% dblu$dblu)
 
 # write.table(d_strand_new, "t2t-col.20210610.fasta.D_SOLO_LTR_BLAST_NONOVERLAPPING.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(d_strand_new, input5, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(d_strand_new, input6, sep = "\t", row.names = F, quote= F, col.names = F)
 
 d_strand_plus20=d_strand_new %>%
   mutate(ext_start=as.numeric(as.character(start)) - 50,
          ext_end=as.numeric(as.character(end)) + 50)
 
 d_strand_plus20_new=d_strand_plus20 %>%
-  select(seqnames, ext_start, ext_end, sp_full_id, coverage, atha, strand)
+  select(seqnames, ext_start, ext_end, sp_full_id, coverage, lineage, strand)
 
 # write.table(d_strand_plus20_new, "t2t-col.20210610.fasta.D_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS20.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(d_strand_plus20_new, input6, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(d_strand_plus20_new, input7, sep = "\t", row.names = F, quote= F, col.names = F)
 
 p_strand=p_strand %>%
- mutate(atha="P_Athila_prime", species_code=as.character(input4))
+ mutate(lineage = paste0('P_', as.character(input4), '_prime'), species_code=as.character(input5))
 
 # p_strand=p_strand %>%
 #     mutate(atha="P_Athila_prime", species_code="Atha")
 
 p_strand=unite(p_strand, coords, c(start, end), remove=FALSE, sep="-")
 p_strand=unite(p_strand, chr_coords, c(seqnames, coords), remove=FALSE, sep=".")
-p_strand=unite(p_strand, full_id, c(chr_coords, atha), remove=FALSE, sep="_")
+p_strand=unite(p_strand, full_id, c(chr_coords, lineage), remove=FALSE, sep="_")
 p_strand=unite(p_strand, sp_full_id, c(species_code, full_id), remove=FALSE, sep="_")
 
 p_strand=p_strand %>%
-  select(seqnames, start, end, sp_full_id, coverage, atha, strand)
+  select(seqnames, start, end, sp_full_id, coverage, lineage, strand)
 
 pblu=setdiff(p_strand$sp_full_id, ltr_length$V1)
 pblu=as.data.frame(pblu)
@@ -155,18 +156,18 @@ p_strand_new=subset(p_strand, sp_full_id %in% pblu$pblu)
 
 # write.table(p_strand, "t2t-col.20210610.fasta.P_SOLO_LTR_BLAST_NONOVERLAPPING.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(p_strand, input7, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(p_strand, input8, sep = "\t", row.names = F, quote= F, col.names = F)
 
 p_strand_plus20=p_strand_new %>%
   mutate(ext_start=as.numeric(as.character(start)) - 50,
          ext_end=as.numeric(as.character(end)) + 50)
 
 p_strand_plus20_new=p_strand_plus20 %>%
-  select(seqnames, ext_start, ext_end, sp_full_id, coverage, atha, strand)
+  select(seqnames, ext_start, ext_end, sp_full_id, coverage, lineage, strand)
 
 # write.table(p_strand_plus20, "t2t-col.20210610.fasta.P_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS20.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(p_strand_plus20_new, input8, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(p_strand_plus20_new, input9, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
 #########  BED FOR TSDs
@@ -185,11 +186,11 @@ tsd_bed_V2_P=tsd_bed_V2[which(tsd_bed_V2$strand=="-"),]
 
 # write.table(tsd_bed_V2_D, "t2t-col.20210610.fasta.D_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS_TSD_LEFTV2.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V2_D, input9, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V2_D, input10, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # write.table(tsd_bed_V2_P, "t2t-col.20210610.fasta.P_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS_TSD_LEFTV2.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V2_P, input10, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V2_P, input11, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
 
@@ -203,11 +204,11 @@ tsd_bed_V3_P=tsd_bed_V3[which(tsd_bed_V3$strand=="-"),]
 
 # write.table(tsd_bed_V3_D, "t2t-col.20210610.fasta.D_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS_TSD_RIGHTV3.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V3_D, input11, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V3_D, input12, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # write.table(tsd_bed_V3_P, "t2t-col.20210610.fasta.P_SOLO_LTR_BLAST_NONOVERLAPPING_PLUS_TSD_RIGHTV3.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V3_P, input12, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V3_P, input13, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
 
@@ -258,7 +259,7 @@ write.table(tsd_bed_V3_P, input12, sep = "\t", row.names = F, quote= F, col.name
 # full_overlapping=rbind(overlapping_D, overlapping_P)
 # 
 # 
-# #write.table(full_overlapping, input10, sep = "\t", row.names = F, quote= F, col.names = F)
+# #write.table(full_overlapping, input11, sep = "\t", row.names = F, quote= F, col.names = F)
 # 
 # write.table(full_overlapping, "t2t-col.20210610.fasta.DP_FULLLENGTH_BLAST_OVERLAPPING.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 

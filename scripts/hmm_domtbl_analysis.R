@@ -182,7 +182,7 @@ dokimh_final_new$query_name=gsub("_internal", "", dokimh_final_new$query_name)
 dokimh_final_new=merge(dokimh_final_new, mhkos_5ltr, by.x = c("query_name"), by.y =  c("V1"), all.x = TRUE)
 
 ### dokimh_final_new$part1=gsub(".*_", "", dokimh_final_new$part1)
-dokimh_final_new$part2=gsub("_Athila_internal", "", dokimh_final_new$part2)
+dokimh_final_new$part2=gsub("(_[PD]).*$", "\\1", dokimh_final_new$part2)
 
 dokimh_final_new=dokimh_final_new %>%
   separate(part1, c("chr", "arxh"), sep = "\\.", remove=TRUE)

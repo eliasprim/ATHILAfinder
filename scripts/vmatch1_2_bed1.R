@@ -96,7 +96,7 @@ if (class(rtry) != "try-error") {
   
   flt1=vmatch_tab[which(vmatch_tab$V1!="Query:" & vmatch_tab$V1!="!" & vmatch_tab$V1!="!!"),]
   
-  flt2_start=flt1[which(flt1$V1=="20" | flt1$V1=="21"),]
+  suppressWarnings({flt2_start=flt1[!is.na(as.numeric(flt1$V1)),]})
   
   colnames(flt2_start)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
   

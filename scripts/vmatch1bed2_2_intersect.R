@@ -32,17 +32,15 @@ after_window1=after_window1 %>%
   mutate(distance=as.numeric(as.character(V12)) - as.numeric(as.character(V3)))
 
 after_window1=after_window1 %>%
-  add_count(V4)
-
-after_window1=after_window1 %>%
-  add_count(V14)
+  add_count(V4, name="first_signature_count") %>%
+  add_count(V14, name="second_signature_count")
 
 after_window2=read.table(input2, sep="\t")
 
 # after_window2=read.table("t2t-col.20210610.fasta.F2B.PBS_2_PPT_FULL_D_r10k_v.txt", sep="\t")
 
 after_window2=after_window2 %>%
-  mutate(V11="NA", V12="NA", V13="NA", V14="NA", V15="NA", V16="NA", V17="NA", V18="NA", V19="NA", V20="NA", distance="NA", n=1, nn=0)
+  mutate(V11="NA", V12="NA", V13="NA", V14="NA", V15="NA", V16="NA", V17="NA", V18="NA", V19="NA", V20="NA", distance="NA", first_signature_count=1, second_signature_count=0)
 
 after_window3=read.table(input3, sep="\t")
 
@@ -51,20 +49,21 @@ after_window3=read.table(input3, sep="\t")
 colnames(after_window3)=c("V11", "V12", "V13", "V14", "V15", "V16", "V17", "V18", "V19", "V20")
 
 after_window3=after_window3 %>%
-  mutate(V1="NA", V2="NA", V3="NA", V4="NA", V5="NA", V6="NA", V7="NA", V8="NA", V9="NA", V10="NA", distance="NA", n=0, nn=1)
+  mutate(V1="NA", V2="NA", V3="NA", V4="NA", V5="NA", V6="NA", V7="NA", V8="NA", V9="NA", V10="NA", distance="NA", first_signature_count=0, second_signature_count=1)
 
 after_window3=after_window3 %>%
-  select(V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, distance, n, nn)
+  select(V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, distance, first_signature_count, second_signature_count)
 
 ultimate_table=rbind(after_window1, after_window2, after_window3)
 
-ultimate_table$n=gsub("0", "no", ultimate_table$n)
-ultimate_table$n=gsub("1", "one_time", ultimate_table$n)
-ultimate_table$n=gsub("2", "two_times", ultimate_table$n)
+ultimate_table$first_signature_count[ultimate_table$first_signature_count>=2]="two_or_more_times"
+ultimate_table$first_signature_count[ultimate_table$first_signature_count==0]="no"
+ultimate_table$first_signature_count[ultimate_table$first_signature_count==1]="one_time"
 
-ultimate_table$nn=gsub("0", "no", ultimate_table$nn)
-ultimate_table$nn=gsub("1", "one_time", ultimate_table$nn)
-ultimate_table$nn=gsub("2", "two_times", ultimate_table$nn)
+ultimate_table$second_signature_count[ultimate_table$second_signature_count>=2]="two_or_more_times"
+ultimate_table$second_signature_count[ultimate_table$second_signature_count==0]="no"
+ultimate_table$second_signature_count[ultimate_table$second_signature_count==1]="one_time"
+
 
 # write everything summary table
 
@@ -74,18 +73,18 @@ write.table(ultimate_table, input4, sep = "\t", row.names = F, quote= F, col.nam
 
 
 
-rejected_everything=ultimate_table[which(ultimate_table$n!="one_time" | ultimate_table$nn!="one_time"),]
+rejected_everything=ultimate_table[which(ultimate_table$first_signature_count!="one_time" | ultimate_table$second_signature_count!="one_time"),]
 
 rejected_everything=rejected_everything %>%
-  select(V1, V2, V3, V4, V5, V6, V8, V7, V14, V15, V16, V18, V17, distance, V10)
+  select(V1, V2, V3, V4, V5, V6, V8, V7, V14, V15, V16, V18, V17, distance, first_signature_count, second_signature_count, V10)
 
 colnames(rejected_everything)[3]="V13"
 
 
-single_ultimate_table=ultimate_table[which(ultimate_table$n=="one_time" & ultimate_table$nn=="one_time"),]
+single_ultimate_table=ultimate_table[which(ultimate_table$first_signature_count=="one_time" & ultimate_table$second_signature_count=="one_time"),]
 
 single_ultimate_table=single_ultimate_table %>%
-  select(V1, V2, V13, V4, V5, V6, V8, V7, V14, V15, V16, V18, V17, distance, V10)
+  select(V1, V2, V13, V4, V5, V6, V8, V7, V14, V15, V16, V18, V17, distance, first_signature_count, second_signature_count, V10)
 
 single_ultimate_table$distance=as.numeric(as.character(single_ultimate_table$distance))
 

@@ -28,6 +28,7 @@ input14 = args[14]
 input15 = args[15]
 input16 = args[16]
 input17 = args[17]
+input18 = args[18]
 
 ###### UNIVERSAL NAMES FOR FULLLENGTH, 5' AND 3' LTRs
 
@@ -45,16 +46,20 @@ full_bed=unite(full_bed, half_new_id, c(V2, V3), remove=FALSE, sep="-")
 full_bed=unite(full_bed, new_id, c(V1, half_new_id), remove=FALSE, sep=".")
 full_bed=unite(full_bed, fasta_id, c(V1, half_new_id), remove=FALSE, sep=":")
 
+lineage=as.character(input3)
+
 full_bed_D=full_bed[which(full_bed$V7=="+"),]
 full_bed_D=full_bed_D %>%
-  mutate(strand="D_Athila")
+  # mutate(strand="D_Athila") %>%
+  mutate(strand=paste0("D_", lineage))
 full_bed_D=unite(full_bed_D, new_full_id, c(new_id, strand), remove=TRUE, sep="_")
 full_bed_D=unite(full_bed_D, ult_new_full_id, c(species_code, new_full_id), remove=TRUE, sep="_")
 
 
 full_bed_P=full_bed[which(full_bed$V7=="-"),]
 full_bed_P=full_bed_P %>%
-  mutate(strand="P_Athila")
+  # mutate(strand="P_Athila") %>%
+  mutate(strand=paste0("P_", lineage))
 full_bed_P=unite(full_bed_P, new_full_id, c(new_id, strand), remove=TRUE, sep="_")
 full_bed_P=unite(full_bed_P, ult_new_full_id, c(species_code, new_full_id), remove=TRUE, sep="_")
 
@@ -75,9 +80,9 @@ to_rename=ultimate_bed %>%
 new_ultimate_bed=ultimate_bed %>%
   select(V1, V2, V3, ult_new_full_id, V5, V6, V7)
 
-write.table(to_rename, input3, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(to_rename, input4, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(new_ultimate_bed, input4, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(new_ultimate_bed, input5, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
 #########  BED FOR TSDs
@@ -93,9 +98,9 @@ tsd_bed_V2=tsd_bed %>%
 tsd_bed_V2_D=tsd_bed_V2[which(tsd_bed_V2$V7=="+"),]
 tsd_bed_V2_P=tsd_bed_V2[which(tsd_bed_V2$V7=="-"),]
 
-write.table(tsd_bed_V2_D, input5, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V2_D, input6, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V2_P, input6, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V2_P, input7, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
 
@@ -108,14 +113,14 @@ tsd_bed_V3_P=tsd_bed_V3[which(tsd_bed_V3$V7=="-"),]
 
 
 
-write.table(tsd_bed_V3_D, input7, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(tsd_bed_V3_D, input8, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(tsd_bed_V3_P, input8, sep = "\t", row.names = F, quote= F, col.names = F)
-
-
+write.table(tsd_bed_V3_P, input9, sep = "\t", row.names = F, quote= F, col.names = F)
 
 
-ltr5_bed=read.table(input9, sep="\t")
+
+
+ltr5_bed=read.table(input10, sep="\t")
 
 rename_5ltr=merge(to_rename_ltrs, ltr5_bed, by.x = c("V4"), by.y =  c("V5"), all.x = TRUE)
 rename_5ltr=unite(rename_5ltr, half_5ltr_id, c(V2, V3), remove=FALSE, sep="-")
@@ -131,11 +136,11 @@ to_5ltr_rename=rename_5ltr %>%
 new_ltr5_bed=rename_5ltr %>%
   select(V1, V2, V3, new_full_id_prime, V4.y, V6)
 
-write.table(to_5ltr_rename, input10, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(to_5ltr_rename, input11, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(new_ltr5_bed, input11, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(new_ltr5_bed, input12, sep = "\t", row.names = F, quote= F, col.names = F)
 
-ltr3_bed=read.table(input12, sep="\t")
+ltr3_bed=read.table(input13, sep="\t")
 
 rename_3ltr=merge(to_rename_ltrs, ltr3_bed, by.x = c("V4"), by.y =  c("V5"), all.x = TRUE)
 rename_3ltr=unite(rename_3ltr, half_3ltr_id, c(V2, V3), remove=FALSE, sep="-")
@@ -151,11 +156,11 @@ to_3ltr_rename=rename_3ltr %>%
 new_ltr3_bed=rename_3ltr %>%
   select(V1, V2, V3, new_full_id_prime, V4.y, V6)
 
-write.table(to_3ltr_rename, input13, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(to_3ltr_rename, input14, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(new_ltr3_bed, input14, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(new_ltr3_bed, input15, sep = "\t", row.names = F, quote= F, col.names = F)
 
-int_bed=read.table(input15, sep="\t")
+int_bed=read.table(input16, sep="\t")
 
 rename_int=merge(to_rename_ltrs, int_bed, by.x = c("V4"), by.y =  c("V4"), all.x = TRUE)
 rename_int=unite(rename_int, half_int_id, c(V2, V3), remove=FALSE, sep="-")
@@ -171,6 +176,6 @@ to_int_rename=rename_int %>%
 new_int_bed=rename_int %>%
   select(V1, V2, V3, new_full_id_prime, V5)
 
-write.table(to_int_rename, input16, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(to_int_rename, input17, sep = "\t", row.names = F, quote= F, col.names = F)
 
-write.table(new_int_bed, input17, sep = "\t", row.names = F, quote= F, col.names = F)
+write.table(new_int_bed, input18, sep = "\t", row.names = F, quote= F, col.names = F)

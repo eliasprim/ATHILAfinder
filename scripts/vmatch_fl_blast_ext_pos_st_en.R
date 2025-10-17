@@ -44,7 +44,9 @@ vmatch_tab_a=read.table(input2, fill = T)
 
 flt1_a=vmatch_tab_a[which(vmatch_tab_a$V1!="Query:" & vmatch_tab_a$V1!="!" & vmatch_tab_a$V1!="!!"),]
 
-flt2_start_a=flt1_a[which(flt1_a$V1=="20" | flt1_a$V1=="21"),]
+# flt2_start_a=flt1_a[which(flt1_a$V1=="20" | flt1_a$V1=="21"),]
+
+suppressWarnings({flt2_start_a=flt1_a[!is.na(as.numeric(flt1_a$V1)),]})
 
 colnames(flt2_start_a)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -96,7 +98,9 @@ vmatch_tab_d=read.table(input5, fill = T)
 
 flt1_d=vmatch_tab_d[which(vmatch_tab_d$V1!="Query:" & vmatch_tab_d$V1!="!" & vmatch_tab_d$V1!="!!"),]
 
-flt2_start_d=flt1_d[which(flt1_d$V1=="20" | flt1_d$V1=="21"),]
+# flt2_start_d=flt1_d[which(flt1_d$V1=="20" | flt1_d$V1=="21"),]
+
+suppressWarnings({flt2_start_d=flt1_d[!is.na(as.numeric(flt1_d$V1)),]})
 
 colnames(flt2_start_d)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -145,7 +149,7 @@ pbs_ppt_final=pbs_ppt_final[which(pbs_ppt_final$Mismatches.x<=as.numeric(input6)
 
 # pbs_ppt_final=pbs_ppt_final[which(pbs_ppt_final$Mismatches.x<=5 & pbs_ppt_final$Mismatches.y<=5),]
 
-print(pbs_ppt_final)
+# print(pbs_ppt_final)
 
 pbs_ppt_final=pbs_ppt_final %>%
   select(-Strand.x, -Strand.y, -Length.x, -Length.y, -ltr3_1, -ltr3_2)
@@ -175,7 +179,7 @@ pbs_ppt_final=pbs_ppt_final %>%
 pbs_ppt_final=pbs_ppt_final %>%
   separate(prwto, c("chr", "coord1"), sep="\\.", remove=FALSE)
 
-pbs_ppt_final$deutero=gsub("_Athila", "", pbs_ppt_final$deutero)
+pbs_ppt_final$deutero=gsub("(_[PD]).*$", "\\1", pbs_ppt_final$deutero)
 
 pbs_ppt_final=pbs_ppt_final %>%
   separate(deutero, c("coord2", "strand"), sep="_", remove=FALSE)
@@ -209,6 +213,7 @@ D_strand=unite(D_strand, start_or_end_id, c(ext_st, ext_en), remove=FALSE, sep="
 D_strand=unite(D_strand, start_or_end_id, c(start_or_end_id, ID), remove=FALSE, sep="$")
 
 
+
 D_strand_pos_st=D_strand %>%
   select(chr, pos_en_st, pos_en_en, start_or_end_id, PBS_Type, PBS_Seq, PBS_Mismatches, strand)
 
@@ -224,18 +229,19 @@ write.table(D_strand_pos_en, input11, sep = "\t", row.names = F, quote= F, col.n
 # write.table(D_strand_pos_en, "Col-CEN_v1.2.fasta.D_FULLLENGTH_BLAST_NONOVERLAPPING_POTENTIAL_ENDS.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
 D_strand_ext=D_strand %>%
-  select(chr, ext_st, ext_en, ID, PBS_Type, PBS_Seq, PBS_Mismatches, PPT_Type, PPT_Seq, PPT_Mismatches, Length, ID, strand)
+  select(chr, ext_st, ext_en, ID, PBS_Type, PBS_Seq, PBS_Mismatches, PPT_Type, PPT_Seq, PPT_Mismatches, strand) # I removed Length column
 
 write.table(D_strand_ext, input12, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # write.table(D_strand_ext, "Col-CEN_v1.2.fasta.D_FULLLENGTH_BLAST_NONOVERLAPPING_EXTENDED.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
 D_strand_int=D_strand %>%
-  select(chr, pos_st_en, pos_en_st, ID, PBS_Type, PBS_Seq, PBS_Mismatches, PPT_Type, PPT_Seq, PPT_Mismatches, Length, ID, strand)
+  select(chr, pos_st_en, pos_en_st, ID, PBS_Type, PBS_Seq, PBS_Mismatches, PPT_Type, PPT_Seq, PPT_Mismatches, strand) # I removed Length column
 
 write.table(D_strand_int, input13, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # write.table(D_strand_int, "Col-CEN_v1.2.fasta.D_FULLLENGTH_BLAST_NONOVERLAPPING_INTERNAL.bed", sep = "\t", row.names = F, quote= F, col.names = F)
+
 
 
 P_strand=P_strand %>%
@@ -265,14 +271,14 @@ write.table(P_strand_pos_en, input15, sep = "\t", row.names = F, quote= F, col.n
 # write.table(P_strand_pos_en, "Col-CEN_v1.2.fasta.P_FULLLENGTH_BLAST_NONOVERLAPPING_POTENTIAL_ENDS.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
 P_strand_ext=P_strand %>%
-  select(chr, ext_en, ext_st, ID, PPT_Type, PPT_Seq, PPT_Mismatches, PBS_Type, PBS_Seq, PBS_Mismatches, Length, ID, strand)
+  select(chr, ext_en, ext_st, ID, PPT_Type, PPT_Seq, PPT_Mismatches, PBS_Type, PBS_Seq, PBS_Mismatches, strand)
 
 write.table(P_strand_ext, input16, sep = "\t", row.names = F, quote= F, col.names = F)
 
 # write.table(P_strand_ext, "Col-CEN_v1.2.fasta.P_FULLLENGTH_BLAST_NONOVERLAPPING_EXTENDED.bed", sep = "\t", row.names = F, quote= F, col.names = F)
 
 P_strand_int=P_strand %>%
-  select(chr, pos_en_en, pos_st_st, ID, PPT_Type, PPT_Seq, PPT_Mismatches, PBS_Type, PBS_Seq, PBS_Mismatches, Length, ID, strand)
+  select(chr, pos_en_en, pos_st_st, ID, PPT_Type, PPT_Seq, PPT_Mismatches, PBS_Type, PBS_Seq, PBS_Mismatches, strand)
 
 write.table(P_strand_int, input17, sep = "\t", row.names = F, quote= F, col.names = F)
 

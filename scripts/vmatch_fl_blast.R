@@ -43,7 +43,9 @@ vmatch_tab_a=read.table(input2, fill = T)
 
 flt1_a=vmatch_tab_a[which(vmatch_tab_a$V1!="Query:" & vmatch_tab_a$V1!="!" & vmatch_tab_a$V1!="!!"),]
 
-flt2_start_a=flt1_a[which(flt1_a$V1=="21" | flt1_a$V1=="22"),]
+# flt2_start_a=flt1_a[which(flt1_a$V1=="21" | flt1_a$V1=="22"),]
+
+suppressWarnings({flt2_start_a=flt1_a[!is.na(as.numeric(flt1_a$V1)),]})
 
 colnames(flt2_start_a)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
@@ -151,7 +153,9 @@ vmatch_tab_d=read.table(input5, fill = T)
 
 flt1_d=vmatch_tab_d[which(vmatch_tab_d$V1!="Query:" & vmatch_tab_d$V1!="!" & vmatch_tab_d$V1!="!!"),]
 
-flt2_start_d=flt1_d[which(flt1_d$V1=="21" | flt1_d$V1=="22"),]
+# flt2_start_d=flt1_d[which(flt1_d$V1=="21" | flt1_d$V1=="22"),]
+
+suppressWarnings({flt2_start_d=flt1_d[!is.na(as.numeric(flt1_d$V1)),]})
 
 colnames(flt2_start_d)=c("Length_1", "Chr", "Start", "Strand", "Length_2", "Type", "Zeros", "Mismatches")
 
