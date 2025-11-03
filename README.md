@@ -36,17 +36,17 @@ conda activate athilafinder
 
 ## Usage
 
-1. Modify ATHILAfinder parameters
+0. Modify ATHILAfinder parameters
 
 A detailed description of all available parameters is provided in the ATHILAfinder_runscript.sh file. Users can modify these parameters by selecting the appropriate command-line options for their operating system (Linux or macOS).  
 
-2. Execute ATHILAfinder_runscript.sh
+1. Execute ATHILAfinder_runscript.sh
 
 ```shell
 bash ATHILAfinder_runscript.sh
 ```
 
-3. Get the results
+2. Get the results
 
 Upon successful completion of an ATHILAfinder run, two output directories are generated: the main and the side outputs. The main output directory contains all files required for downstream analyses, whereas the side output directory includes supplementary files useful for validation and in-depth characterization of ATHILA elements.
 
