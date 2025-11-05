@@ -4,7 +4,7 @@
 
 start=$(date +%s) 
 
-echo "Running on cluster: $(hostname) at $(date)"
+echo "Running ATHILAfinder_v1.0 on cluster: $(hostname) at $(date)"
 
 
 echo "Assembly: $1";
