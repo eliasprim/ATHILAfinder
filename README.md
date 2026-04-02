@@ -68,4 +68,6 @@ Vmatch: Kurtz,S. The Vmatch large scale sequence analysis software A Manual.
 
 ## Citing ATHILAfinder
 
-The accompanying manuscript will be available soon. In the meanwhile, please refer to this repository.
+If you use ATHILAfinder in your work, please cite:
+
+Primetis, E. and Bousios, A. (2026) “ATHILAfinder: a tool to detect ATHILA LTR retrotransposons in plant genomes.” Available at: https://doi.org/10.64898/2026.03.20.713144.
